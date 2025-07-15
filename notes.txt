@@ -73,6 +73,7 @@ How to create a Custom Image to your application?
 FROM
 ====
 FROM alamalinux:9
+- This is the first instruction in docker file
 
 Build
 =====
@@ -109,6 +110,76 @@ ADD
 
 15/07/2025:
 -----------
+
+- var/lib/docker -> docker home directory
+
+LABEL
+======
+- These is used for documentation purose just like tags
+
+
+Docker Commands:
+----------------
+- docker images --filter "label=COURSE=Devops"
+- docker push docker.io/<username>/<name>:<tag> -> To push image into docker hub
+- docker push <url>/<username>/<image_name>:<version> - To push into some other repository
+
+- docker login -u <username>
+- docker tag <image_name>:<version> <username>/<image_name>:<version> -> Before pushing you have to do re-tag
+- docker push <image_name>:<version> -> Now it will be pushed to docker hub
+
+- docker ps -a --no-trunc -> To show full messages
+- docker run <name>:<label> <cmd line value> -> used to ping or provide values
+
+MAINTAINER (Deprecated)
+==========
+- Used this filed in LABEL only
+
+EXPOSE
+=======
+- used for documentation purpose
+- Like to let you know port numbers, protocols etc.
+
+ENV
+===
+- The ENV instruction sets the environment variable <key> to the value <value>
+- Used to set env variables
+
+ENTRYPOINT
+==========
+- CMD instruction can be overriden 
+- We cannot overwrite entry point. If we try. it will over ride and will throw an error.
+- We can use combination of CMD and ENTRYPOINT for better results
+- We can use ENTRYPOINT as key and CMD can be used as value
+- For CMD - we can overide values through command line
+
+USER 
+====
+- To restrict use of root user
+- To create an user and run the commands through user
+
+WORKDIR
+=======
+- To set a dir where to run commands
+
+ARG
+===
+- It is an build time variables
+- We can not access inside container
+- ENV we can access inside container as well for variables purpose
+- ARG can be overriden during buid process using --build-arg trainer=sive
+- ENV values cannot overriden during build process
+- ARG can be given first instruction in Dockerfile
+- In exceptional case ARG cab be used to supply version to FROM instruction through run time
+- How can you use ARG inside container as well?
+    ARG trainer="sivalumar"
+    ENV tranier=$(trainer)
+
+ONBUILD
+=======
+- While developing images we can put some conditions to use other people as base image or not
+- 
+
 
 
 
