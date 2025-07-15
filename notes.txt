@@ -1,0 +1,118 @@
+11/07/25:
+---------
+
+Home Work:
+----------
+01. Difference between VM vs Container?
+02. What is Hypervisior?
+03. What is Baremetal?
+04. Baremetal vs VM vs Container?
+
+
+Docker Installation Commands on RHEL:
+--------------------------------------
+- Set up the repository:
+    sudo dnf -y install dnf-plugins-core
+    sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+
+- Install Docker Engine:
+    Install the Docker packages:
+        - sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    - Above command installs Docker, but it doesn't start Docker. It also creates a docker group, however, it doesn't add any users to the group by default.
+        - sudo systemctl start docker
+        - sudo systemctl enable --now docker / sudo systemctl enable docker
+        - sudo systemctl status docker
+
+- Add user to docker group
+    - sudo usermod -aG docker ec2-user
+    - Restart system 
+
+
+14/07/2025:
+-----------
+
+Docker commands:
+----------------
+- docker ps -> To list running containers
+- docker images -> To list images in the system
+- docker pull <image-name>:<tag/version> -> To download/get the image
+- docker create nginx:latest -> To create a container
+- docker ps -a -> To list all containers including all status
+- docker start <container_id_of_nginx> -> To start docker
+- docker rm  -f <container_id> -> To remove container
+- docker rmi <image_name> -> To remove image
+- docker run nginx:latets -> To pull image, Create container and Start Docker -> It runs foreground
+- docker run -d ngnix:latest -> To pull image, Create container and Start Docker -> To detach the screen
+
+To access nginx:
+    - docker run -d -p <host_port>:<container_port> ngnix
+        - host port can not duplicate. It should be unique
+        - Container Port can be duplicated, Each container will 0-65535 ports
+    - docker run -d -p 80:80 ngnix -> Create ngnix container and we can access
+    - docker run -d -p 8080:80 ngnix -> Creates one more container
+    - docker ps -a -q -> To list all container ID's
+    - docker rm -f `pa -a -q` -> To remove all containers
+
+    - docker run -d -p 80:80 --name ngnix nginx -> To Create ngnix container with name nginx and we can access
+        - With same name we cannot create one more container
+    - docker exec -it <container_name/container_id> bash -> To login into container
+    - docker inspect <container_name/container_id> -> To check the container information like IP, Ports etc
+    - docker logs <container_name/container_id> -> To check logs
+
+Docker Registry:
+----------------
+- This is central repo for storing images
+
+
+How to create a Custom Image to your application?
+-------------------------------------------------
+- With the help of docker file we can create a custom image
+- Dockerfile
+    -  A set of instructions to create a customized image
+
+FROM
+====
+FROM alamalinux:9
+
+Build
+=====
+docker build -t from:v1 . -> To build the image in a current directory using docker file
+    - From is the name
+    - v1 is the tag
+    - . is the current path
+
+RUN
+===
+RUN commands
+
+- RUN instructions configure the image like installing packages, doing some configurations, etc..
+- RUN executes at the time of image creation
+
+CMD 
+===
+- CMD executes at the time of container creation i.e at the time of docker run. 
+- There should be only one CMD instruction inside Dockerfile
+
+CMD ["param1","param2"]
+
+COPY
+====
+- copies the code from local to 
+
+ADD 
+===
+- COPY and ADD both copies the code from local to container. But it has two more advantages
+1. It can directly fetch the file from internet
+2. It can directly untar the file into container
+
+
+
+15/07/2025:
+-----------
+
+
+
+
+
+
+
