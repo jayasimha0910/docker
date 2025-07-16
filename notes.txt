@@ -178,8 +178,63 @@ ARG
 ONBUILD
 =======
 - While developing images we can put some conditions to use other people as base image or not
-- 
 
+
+
+16/07/2025
+----------
+- docker build -t mongodb:v1 . -> To build image
+- docker run -d --name mongodb mongodb:v1 - To create a container
+    - - Here were not exposing monodb to user. so port specification is not required
+
+- docker build -t catalogue:v1 . -> To build image
+- docker run -d --name catalogue catalogue:v1 - To create a container
+    - Here were not exposing catalogue to user. so port specification is not required
+    - - curl localhost:8080/health -> To check connection
+
+- docker network
+- docker network ls 
+
+- docker have 2 types of network: 
+    - bridge and host 
+        - host means directly host network. 
+        - bridge means docker creates seperate network interface and assign the IP address to containers.
+
+    - docker uses default bridge network can't communicate between containers, docker always suggest to create custom bridge network
+    - docker uses bridge networking by default
+    - If you use bridge network - container will not communicate over each other even if containers are in same network
+
+- docker network create <name-of-network> 
+
+- docker network disconnect bridge catalogue
+- docker network disconnect bridge mongodb
+
+- docker network connect roboshop catalogue
+- docker network connect roboshop mongodb
+
+
+- docker build -t user:v1 . -> To build image
+- docker run -d --name user --network roboshop user:v1 - To create a container
+    - Here were not exposing user component to user. so port specification is not required
+    - curl localhost:8080/health -> To check connection
+
+- docker build -t cart:v1 . -> To build image
+- docker run -d --name cart --network roboshop cart:v1 - To create a container
+    - Here were not exposing cart component to user. so port specification is not required
+    - curl localhost:8080/health -> To check connection
+
+- docker build -t mysql:v1 . -> To build image
+- docker run -d --name mysql --network roboshop mysql:v1 - To create a container
+    - Here were not exposing mysql component to user. so port specification is not required
+
+- Here in redis we are not loading any data 
+- So directly we can pull image or run container
+    - docker run -d --name redis --network roboshop redis:7
+- This image comes directly from docker hub
+
+- docker build -t shipping:v1 . -> To build image
+- docker run -d --name shipping --network roboshop shipping:v1 - To create a container
+    - Here were not exposing shipping component to user. so port specification is not required
 
 
 

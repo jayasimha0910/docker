@@ -1,0 +1,5 @@
+- Here in redis we are not loading any data 
+- So directly we can run pull image or run container
+    - docker run -d --name redis --network roboshop redis:7
+- This image comes directly from docker hub
+
