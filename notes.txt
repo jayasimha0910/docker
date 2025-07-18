@@ -244,18 +244,59 @@ Docker Compose:
 ===============
 - Instead of running container one by one, we use docker compose.
 - docker compose up -d -> This is used to run all the services present in docker-compose.yaml
+- It is commandline tool to manage multi-container applications.
+    - It can create volumes, networks, start and stop containers etc.
+
 
 Docker Volume:
 ==============
 - By default if we delete container or container goes down. All the data will be last. To save that we have volumes concept.
 - Creata folder with any name - ngnix-data
     - docker run -d -p 8080:80 -v /home/ec2-user/ngnix-data:/usr/share/ngnix/html ngnix - This will take data from ngnix-data
+    - -v host-dir:container-dir
+    - If we create dir and manage those dirs those are called un-managed/un-named volumes
+    - If docker creates volumes and manages - those are called managed/named volumes
 
--- Learn this topic. This is important
+Stateless vs Statefull
+-----------------------
+- Where data is important is called statefull application
+- (App code) Where data is not important is called stateless application
 
+- Volumes should be created to statefull aplications.
+
+Names Volumes:
+==============
+- Create Volumes
+    - docker volume -> List volume commands
+    - docker volume create nginx - Createa ngnix volumes dir
+    - docker inspect ngnix - Shows the info of ngnix
+    - docker run -d -p 80:80 -v ngnix:usr/share/ngnix/html ngnix - It runs the container with host volume
+
+
+18/07/2025
+----------
 
 Docker Best Practises:
 ----------------------
+
+Opttimization:
+==============
+01. use minimal version/official images
+02. Run it as non root container
+03. Multistage builds
+
+Multistage Builds:
+------------------
+- Multiple docker files in single docker file
+
+04. Optimise docker layers
+
+Docker Layers:
+--------------
+- Learn this concept
+
+
+
 
 
 
