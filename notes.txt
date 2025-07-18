@@ -237,7 +237,25 @@ ONBUILD
     - Here were not exposing shipping component to user. so port specification is not required
 
 
+17/07/2025
+-----------
 
+Docker Compose:
+===============
+- Instead of running container one by one, we use docker compose.
+- docker compose up -d -> This is used to run all the services present in docker-compose.yaml
+
+Docker Volume:
+==============
+- By default if we delete container or container goes down. All the data will be last. To save that we have volumes concept.
+- Creata folder with any name - ngnix-data
+    - docker run -d -p 8080:80 -v /home/ec2-user/ngnix-data:/usr/share/ngnix/html ngnix - This will take data from ngnix-data
+
+-- Learn this topic. This is important
+
+
+Docker Best Practises:
+----------------------
 
 
 
